@@ -3,7 +3,7 @@ Vue mastery course
 
 ## Style Bindings
 
-```
+```js
 data: {
     color: 'red',
     fontSize: '13px'
@@ -17,7 +17,7 @@ or
 
 ### Objects
 
-```
+```js
 data: {
     styleObject: {
         color: 'red',
@@ -30,7 +30,7 @@ data: {
 
 ### Arrays
 
-```
+```js
 data: {
     styleObject: {
         color: 'red',
@@ -47,7 +47,7 @@ data: {
 
 ## Class Bindings
 
-```
+```js
 data: {
     activeClass: true,
     errorClass: false
@@ -61,7 +61,7 @@ data: {
 
 ### Objects
 
-```
+```js
 data: {
     classObject: {
         activeClass: true,
@@ -74,7 +74,7 @@ data: {
 
 ### Arrays
 
-```
+```js
 data: {
     activeClass: 'active',
     errorClass: 'text-danger'
@@ -86,7 +86,7 @@ data: {
 
 ### Conditionals
 
-```
+```js
 data: {
     isActive: true,
     activeClass: 'active'
@@ -94,3 +94,36 @@ data: {
 
 <div :class="[isActive ? activeClass : '' ]">...</div>
 ```
+
+## Computed Properties
+
+```js
+computed: {
+    title() {
+      return this.brand + ' ' + this.product
+    }
+  }
+```
+
+```js
+<div v-for="(variant, index) in variants" 
+    :key="variant.variantId" 
+    class="color-box"
+    :style="{backgroundColor: variant.variantColor}"
+    @mouseover="updateProduct(variant.index)">
+</div>
+
+data: {
+    selectedVariant: 0,
+  },
+ methods: {
+    updateProduct(index) {
+      this.selectedVariant = index
+    }
+  },
+  computed: {
+    image() {
+      return this.variants[this.selectedVariant].variantImage
+    }
+  }
+  ```
