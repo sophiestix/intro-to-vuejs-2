@@ -127,3 +127,31 @@ data: {
     }
   }
   ```
+
+  ## Components
+
+  It has a props, template, and a `data() {return ...}` function that returns a fresh data object or each component.
+
+```js
+// Vue.component('product', {
+//     props: [message],
+//     template: `<div>{{ message }}</div>`,
+//     data() {...}
+// })
+
+Vue.component('product', {
+    props: {
+        message: {
+            type: String,
+            required: true,
+            default: "Hi"
+        }
+    },
+    template: `<div>{{ message }}</div>`,
+    data() {...},
+    methods: {...},
+    computed: {...}
+})
+
+<product message="Hello!"></product>
+```
