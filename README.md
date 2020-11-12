@@ -153,5 +153,33 @@ Vue.component('product', {
     computed: {...}
 })
 
-<product message="Hello!"></product>
+<product :message="Hello!"></product>
+```
+
+## Communicating Events
+
+Passing events up the tree, like adding things to the car with the `addToCart()`:
+
+```js
+<product :premium="premium" @add-to-cart="updateCart"></product>
+
+Vue.component('product', {
+    ...
+    addToCart() {
+        this.$emit('add-to-cart')
+    }
+})
+
+var app = new Vue({
+    ...
+    data: {
+        ...
+        cart: 0
+    },
+    methods: {
+        updateCart() {
+            this.cart += 1
+        }
+    }
+})
 ```

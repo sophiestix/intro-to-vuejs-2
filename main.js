@@ -53,11 +53,12 @@ Vue.component('product', {
           <!-- <button v-on:click="cart += 1">Add to Card</button> -->
           <button v-on:click="addToCart" 
             :disabled="!inStock"
-            :class="{ disabledButton: !inStock}">Add to Card</button>
+            :class="{ disabledButton: !inStock}">Add to Car</button>
 
-          <div class="cart">
-            <p>Cart({{cart}})</p>
-          </div>
+          <button v-on:click="removeFromCart" 
+            :disabled="!inStock"
+            :class="{ disabledButton: !inStock}">Remove from Cart</button>
+
         </div>
       </div>
     `,
@@ -82,14 +83,16 @@ Vue.component('product', {
             variantQuantity: 0
           },
         ],
-        cart: 0,
         lineThroughClass: "lineThrough",
         onSale: true,
       }
     },
     methods: {
       addToCart() {
-        this.cart += 1;
+        this.$emit('add-to-cart', this.variants[this.selectedVariant].variantId)
+      },
+      removeFromCart() {
+        this.$emit('remove-from-cart', this.variants[this.selectedVariant].variantId)
       },
       updateProduct(index) {
         this.selectedVariant = index;
@@ -124,6 +127,19 @@ Vue.component('product', {
 var app = new Vue({
   el: "#app",
   data: {
-    premium: false
+    premium: false,
+    cart: [],
+  },
+  methods: {
+    updateCart(id) {
+      this.cart.push(id);
+    },
+    removeItem(id) {
+      for (var i = this.cart.length - 1; i >= 0; i--) {
+        if (this.cart[i] === id) {
+          this.cart.splice(i, 1);
+        }
+      }
+    }
   }
 });
