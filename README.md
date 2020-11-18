@@ -183,3 +183,68 @@ var app = new Vue({
     }
 })
 ```
+
+## Forms and v-model
+
+Two-way data binding
+
+```js
+Vue.component('product-review', {
+  template: `
+    <input v-model="name">
+  `,
+  data() {
+    return {
+      name: null
+    }
+  }
+})
+```
+
+```html
+<select id="rating" v-model.number="rating">
+```
+
+`v-model.number` uses the .number modifier to typecaste the value as number.
+
+```js
+@submit.prevent="onSubmit" // the .prevent modifier prevents the default, thye page won't refresh after submitting
+```
+
+```js
+
+// product-review component emits
+<form class="review-form" @submit.prevent="onSubmit">
+
+ methods: {
+    onSubmit() {
+        let productReview = {
+            name: this.name,
+            review: this.review,
+            rating: this.rating
+        }
+
+        this.$emit('review-submitted', productReview)
+
+        name = null;
+        review = null;
+        rating = null;
+    }
+  }
+
+// product component listens to it
+<product-review @review-submitted="addReview"></product-review>
+
+data() {
+    return {
+      reviews: []
+    }
+},
+
+methods: {
+    addReview(productReview) {
+        this.reviews.push(productReview)
+    }
+},
+```
+
