@@ -248,3 +248,16 @@ methods: {
 },
 ```
 
+## Tabs
+
+To transfer data throughout the application, e.g. grandparent-grandchild component: `eventBus` and move the action from `methods` to `mounted`:
+
+```js
+mounted() {
+      eventBus.$on('review-submitted', productReview => {
+        this.reviews.push(productReview)
+      })
+    }
+```
+
+But use Vuex instead if possible.
